@@ -6,10 +6,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-
-
-
-
 var coloredGeoJSONLayer, whiteGeoJSONLayer;
 
 $.getJSON("epci2.geojson", function(data) {
@@ -26,7 +22,7 @@ $.getJSON("epci2.geojson", function(data) {
        }
     },
     onEachFeature : function(feature, layer) {
-      var popupContent = "<strong>" + feature.properties.epci_name + "</strong><br><strong>AOM :</strong>" + feature.properties.AOM;
+      var popupContent = "<strong>" + feature.properties.epci_name + "</strong><br><strong>AOM : </strong>" + feature.properties.AOM;
       if (feature.properties.bassin && feature.properties.bassin.trim() !== '') {
         popupContent += "<br><strong>Bassin</strong> : "+ feature.properties.bassin;
       }
@@ -45,12 +41,17 @@ $.getJSON("epci2.geojson", function(data) {
           color: strokeColor,
           fillOpacity: 0
        }
+    },
+    onEachFeature : function(feature, layer) {
+      var popupContent = "<strong>" + feature.properties.epci_name + "</strong><br><strong>AOM : </strong>" + feature.properties.AOM;
+      if (feature.properties.bassin && feature.properties.bassin.trim() !== '') {
+        popupContent += "<br><strong>Bassin</strong> : "+ feature.properties.bassin;
+      }
+      layer.bindPopup(popupContent);
     }
   });
   coloredGeoJSONLayer.addTo(map);
   whiteGeoJSONLayer.addTo(map);
-  whiteGeoJSONLayer.bringToFront();
-
 
   var toggleColoredLayerButton = L.Control.extend({
     options: {
@@ -95,34 +96,4 @@ $.getJSON("epci2.geojson", function(data) {
   map.addControl(new toggleWhiteLayerButton());
 });
 
-logo.addTo(map);
 
-var logo = L.imageOverlay('logo.jpg', [
-  [0, 0],
-  [0, 0]
-], {
-  opacity: 1,
-  interactive: false
-}).addTo(map);
-
-// Calcul des dimensions maximales en fonction de la taille de la fenêtre
-var maxWidth = window.innerWidth * 0.1; // 10% de la largeur de la fenêtre
-var maxHeight = window.innerHeight * 0.1; // 10% de la hauteur de la fenêtre
-
-// Calcul des dimensions de l'image en respectant le ratio 255:785
-var ratio = 255 / 785;
-var width = Math.min(maxWidth, maxHeight / ratio);
-var height = width * ratio;
-
-// Positionnement du logo en bas à droite de la carte
-logo.setLatLngBounds([
-  [map.getBounds()._northEast.lat - height / 111319, map.getBounds()._northEast.lng - width / 111319],
-  [map.getBounds()._northEast.lat, map.getBounds()._northEast.lng]
-]);
-
-// Mise à jour des dimensions de l'image
-logo.setOpacity(1);
-logo.setBounds([
-  [map.getBounds()._northEast.lat - height / 111319, map.getBounds()._northEast.lng - width / 111319],
-  [map.getBounds()._northEast.lat, map.getBounds()._northEast.lng]
-]);
