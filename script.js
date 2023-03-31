@@ -25,6 +25,9 @@ $.getJSON("epci2.geojson", function(data) {
       var popupContent = "<strong>" + feature.properties.epci_name + "</strong><br><strong>AOM : </strong>" + feature.properties.AOM;
       if (feature.properties.bassin && feature.properties.bassin.trim() !== '') {
         popupContent += "<br><strong>Bassin</strong> : "+ feature.properties.bassin;
+      };
+      if (feature.properties.etudesreferencees && feature.properties.etudesreferencees.trim() !== '') {
+        popupContent += "<br><strong>Études</strong> : "+ feature.properties.etudesreferencees;
       }
       layer.bindPopup(popupContent);
     }
@@ -46,11 +49,11 @@ $.getJSON("epci2.geojson", function(data) {
       var popupContent = "<strong>" + feature.properties.epci_name + "</strong><br><strong>AOM : </strong>" + feature.properties.AOM;
       if (feature.properties.bassin && feature.properties.bassin.trim() !== '') {
         popupContent += "<br><strong>Bassin</strong> : "+ feature.properties.bassin;
-      }
+      };
       if (feature.properties.etudesreferencees && feature.properties.etudesreferencees.trim() !== '') {
         popupContent += "<br><strong>Études</strong> : "+ feature.properties.etudesreferencees;
       }
-      layer.bindPopup(popupContent);
+      layer.bindPopup(popupContent)
     }
   });
   coloredGeoJSONLayer.addTo(map);
