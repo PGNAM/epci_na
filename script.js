@@ -26,8 +26,8 @@ $.getJSON("epci2.geojson", function(data) {
       if (feature.properties.bassin && feature.properties.bassin.trim() !== '') {
         popupContent += "<br><strong>Bassin</strong> : "+ feature.properties.bassin;
       };
-      if (feature.properties.etudesreferencees && feature.properties.etudesreferencees.trim() !== '') {
-        popupContent += "<br><strong>Études</strong> : "+ feature.properties.etudesreferencees;
+      if (feature.properties.etudesrecencees && feature.properties.etudesrecencees.trim() !== '') {
+        popupContent += "<br><strong>Études</strong> : "+ feature.properties.etudesrecencees;
       }
       layer.bindPopup(popupContent);
     }
@@ -50,8 +50,8 @@ $.getJSON("epci2.geojson", function(data) {
       if (feature.properties.bassin && feature.properties.bassin.trim() !== '') {
         popupContent += "<br><strong>Bassin</strong> : "+ feature.properties.bassin;
       };
-      if (feature.properties.etudesreferencees && feature.properties.etudesreferencees.trim() !== '') {
-        popupContent += "<br><strong>Études</strong> : "+ feature.properties.etudesreferencees;
+      if (feature.properties.etudesrecencees && feature.properties.etudesrecencees.trim() !== '') {
+        popupContent += "<br><strong>Études</strong> : "+ feature.properties.etudesrecencees;
       }
       layer.bindPopup(popupContent)
     }
@@ -101,5 +101,3 @@ $.getJSON("epci2.geojson", function(data) {
   });
   map.addControl(new toggleWhiteLayerButton());
 });
-
-
